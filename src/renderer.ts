@@ -124,9 +124,15 @@ export class Renderer {
 	}
 	static mountNode(node: elementLike, into: Instance) {
 		const instance = isComponent(node) ? Renderer.mountComponent(node) : Renderer.mountElement(node);
-		Renderer.rootElementLike.push(node);
+		const thisIndex = Renderer.rootElementLike.push(node) - 1;
 		Renderer.instances.set(node, instance);
 		instance.Parent = into;
+
+		return () => {
+			instance.Destroy();
+			Renderer.rootElementLike.remove(thisIndex);
+			Renderer.instances.delete(node);
+		};
 	}
 	// updating methods
 	static updateNode(node: elementLike) {
@@ -150,5 +156,9 @@ export class Renderer {
 // mounts, transforms schema into instance
 export function render(node: elementLike, into: Instance) {
 	const mounted = Renderer.mountNode(node, into);
-	return mounted;
+	return {
+		unmount() {
+			mounted();
+		},
+	};
 }

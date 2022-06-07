@@ -7,3 +7,5 @@ export * from "./renderer";
 export * from "./createElement";
 export * from "./hooks/createEffect";
 export * from "./hooks/createSignal";
+export * from "./hooks/createDependency";
+export * from "./hooks/externalSignal";
