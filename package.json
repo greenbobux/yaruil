@@ -1,6 +1,6 @@
 {
   "name": "@rbxts/yaruil",
-  "version": "0.1.0-alpha",
+  "version": "0.1.1-alpha",
   "description": "Yet Another Roblox UI Library",
   "main": "out/init.lua",
   "scripts": {
